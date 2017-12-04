@@ -6,6 +6,7 @@ import com.rabbitmq.client.ConnectionFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -35,18 +36,20 @@ public class MqProducer {
         //channel.queueDeclare(QUEUE_NAME,false,false,false,null);
         //UserMessage usermessage=new UserMessage();
 
-     while (true) {
-            UserMessage userMessage = new UserMessage();
-            BufferedReader bu = new BufferedReader(new InputStreamReader(System.in));
+        UserMessage userMessage = new UserMessage();
+        BufferedReader bu = new BufferedReader(new InputStreamReader(System.in));
+        String exchange;
+        while (true) {
             System.out.println("wecome to rabbitmq chat  &_&");
             System.out.println("Type  q to exit");
            System.out.println("you need a name：");
-           if ("q".equals(bu.readLine())) {
+           exchange =bu.readLine();
+           if ("q".equals(exchange)){
                 System.out.println("goodbye"+"&_&");
                 return;
             }else {
-               //控制台输出u的第二行是
-                userMessage.setName(bu.readLine());
+
+                userMessage.setName((exchange));
                 System.out.println("hello" + "  " + userMessage.getName() + "  " + "you can chat now,enjoy it");
                 userMessage.setMessage(bu.readLine());
                 String msg = userMessage.getName() + "   " + "said" + "   " + userMessage.getMessage();
